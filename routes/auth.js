@@ -51,7 +51,16 @@ router.post('/login', async (req, res) => {
       return res.status(401).json(error);
     }
 
-    res.json(data);
+    const { data: userData, error: userError } = await supabase
+      .from('usuarios')
+      .select('nome')
+      .eq('id', data.user.id)
+      .single();
+
+    res.json({
+      ...data,
+      nome: userData ? userData.nome : 'Torcedor'
+    });
 
   } catch (err) {
     res.status(500).json(err);
