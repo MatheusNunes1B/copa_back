@@ -30,3 +30,5 @@ CREATE POLICY "Permitir inserção pública" ON public.usuarios FOR INSERT WITH 
 
 CREATE POLICY "Permitir leitura pública" ON public.posts FOR SELECT USING (true);
 CREATE POLICY "Permitir inserção pública" ON public.posts FOR INSERT WITH CHECK (true);
+CREATE POLICY "Permitir atualização pública" ON public.usuarios FOR UPDATE USING (true) WITH CHECK (true);
+CREATE POLICY "Permitir atualização pública" ON public.posts FOR UPDATE USING (true) WITH CHECK (true);

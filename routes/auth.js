@@ -68,4 +68,31 @@ router.post('/login', async (req, res) => {
 
 });
 
+// Atualizar nome do usuário
+router.put('/update', async (req, res) => {
+
+  try {
+
+    const { usuario_id, nome } = req.body;
+
+    if (!usuario_id || !nome) {
+      return res.status(400).json({ message: 'usuario_id e nome são obrigatórios.' });
+    }
+
+    const { data, error } = await supabase
+      .from('usuarios')
+      .update({ nome })
+      .eq('id', usuario_id)
+      .select();
+
+    if (error) throw error;
+
+    res.json({ mensagem: 'Nome atualizado com sucesso', usuario: data[0] });
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+});
+
 module.exports = router;
